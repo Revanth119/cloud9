@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Sharing Tool</title>
+    <style>
+        /* Basic styles for simplicity */
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; }
+        input[type="email"] { display: block; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h2>Upload a file</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <h3>Emails</h3>
+        <div id="emailFields">
+            <input type="email" name="emails[]" placeholder="Email 1" required>
+        </div>
+        <button type="button" id="addEmail">Add Another Email</button>
+        <input type="submit" value="Upload">
+    </form>
+    
+    <script>
+        const emailContainer = document.getElementById('emailFields');
+        const addEmailBtn = document.getElementById('addEmail');
+
+        let emailCount = 1;
+
+        addEmailBtn.addEventListener('click', () => {
+            if (emailCount < 5) {
+                emailCount++;
+                const newEmailField = document.createElement('input');
+                newEmailField.setAttribute('type', 'email');
+                newEmailField.setAttribute('name', 'emails[]');
+                newEmailField.setAttribute('placeholder', `Email ${emailCount}`);
+                emailContainer.appendChild(newEmailField);
+            }
+            
+            // Disable the button if 5 email fields are present
+            if (emailCount === 5) {
+                addEmailBtn.disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>
